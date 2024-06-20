@@ -1,4 +1,4 @@
-# receipe-eval
+# RecipeApp
 
 A new Flutter project.
 

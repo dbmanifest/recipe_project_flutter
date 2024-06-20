@@ -204,6 +204,41 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'recipe_1_step_16',
           path: '/recipe1Step16',
           builder: (context, params) => const Recipe1Step16Widget(),
+        ),
+        FFRoute(
+          name: 'auth_3_Create',
+          path: '/auth3Create',
+          builder: (context, params) => const Auth3CreateWidget(),
+        ),
+        FFRoute(
+          name: 'auth_3_Login',
+          path: '/auth3Login',
+          builder: (context, params) => const Auth3LoginWidget(),
+        ),
+        FFRoute(
+          name: 'auth_3_phone',
+          path: '/auth3Phone',
+          builder: (context, params) => const Auth3PhoneWidget(),
+        ),
+        FFRoute(
+          name: 'auth_3_verifyPhone',
+          path: '/auth3VerifyPhone',
+          builder: (context, params) => Auth3VerifyPhoneWidget(
+            phoneNumber: params.getParam(
+              'phoneNumber',
+              ParamType.String,
+            ),
+          ),
+        ),
+        FFRoute(
+          name: 'auth_3_ForgotPassword',
+          path: '/auth3ForgotPassword',
+          builder: (context, params) => const Auth3ForgotPasswordWidget(),
+        ),
+        FFRoute(
+          name: 'Details01ProjectTracker',
+          path: '/details01ProjectTracker',
+          builder: (context, params) => const Details01ProjectTrackerWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -322,6 +357,7 @@ class FFParameters {
     String paramName,
     ParamType type, {
     bool isList = false,
+    List<String>? collectionNamePath,
   }) {
     if (futureParamValues.containsKey(paramName)) {
       return futureParamValues[paramName];
@@ -339,6 +375,7 @@ class FFParameters {
       param,
       type,
       isList,
+      collectionNamePath: collectionNamePath,
     );
   }
 }

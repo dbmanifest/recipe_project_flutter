@@ -5,10 +5,10 @@
 // 'flutter create' template.
 
 // The application's name. By default this is also the title of the Flutter window.
-PRODUCT_NAME = receipe-eval
+PRODUCT_NAME = RecipeApp
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = com.mycompany.receipeeval
+PRODUCT_BUNDLE_IDENTIFIER = com.mycompany.recipeapp
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2024 receipe-eval. All rights reserved.
+PRODUCT_COPYRIGHT = Copyright © 2024 RecipeApp. All rights reserved.

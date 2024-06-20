@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.15)
-project(receipe_eval LANGUAGES CXX)
+project(recipe_app LANGUAGES CXX)
 
-set(BINARY_NAME "receipe_eval")
+set(BINARY_NAME "recipe_app")
 
 cmake_policy(SET CMP0063 NEW)
 

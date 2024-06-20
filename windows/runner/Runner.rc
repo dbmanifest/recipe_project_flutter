@@ -89,13 +89,13 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "receipe-eval" "\0"
+            VALUE "CompanyName", "RecipeApp" "\0"
             VALUE "FileDescription", "A new Flutter project." "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "receipe-eval" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2024 receipe-eval. All rights reserved." "\0"
-            VALUE "OriginalFilename", "receipe_eval.exe" "\0"
-            VALUE "ProductName", "receipe-eval" "\0"
+            VALUE "InternalName", "RecipeApp" "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2024 RecipeApp. All rights reserved." "\0"
+            VALUE "OriginalFilename", "recipe_app.exe" "\0"
+            VALUE "ProductName", "RecipeApp" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

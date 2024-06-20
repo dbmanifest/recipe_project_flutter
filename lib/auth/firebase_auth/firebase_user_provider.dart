@@ -1,12 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/foundation.dart';
 
 import '../base_auth_user_provider.dart';
 
 export '../base_auth_user_provider.dart';
 
-class ReceipeEvalFirebaseUser extends BaseAuthUser {
-  ReceipeEvalFirebaseUser(this.user);
+class RecipeAppFirebaseUser extends BaseAuthUser {
+  RecipeAppFirebaseUser(this.user);
   User? user;
   @override
   bool get loggedIn => user != null;
@@ -55,17 +57,20 @@ class ReceipeEvalFirebaseUser extends BaseAuthUser {
   static BaseAuthUser fromUserCredential(UserCredential userCredential) =>
       fromFirebaseUser(userCredential.user);
   static BaseAuthUser fromFirebaseUser(User? user) =>
-      ReceipeEvalFirebaseUser(user);
+      RecipeAppFirebaseUser(user);
 }
 
-Stream<BaseAuthUser> receipeEvalFirebaseUserStream() => FirebaseAuth.instance
+Stream<BaseAuthUser> recipeAppFirebaseUserStream() => FirebaseAuth.instance
         .authStateChanges()
         .debounce((user) => user == null && !loggedIn
             ? TimerStream(true, const Duration(seconds: 1))
             : Stream.value(user))
         .map<BaseAuthUser>(
       (user) {
-        currentUser = ReceipeEvalFirebaseUser(user);
+        currentUser = RecipeAppFirebaseUser(user);
+        if (!kIsWeb) {
+          FirebaseCrashlytics.instance.setUserIdentifier(user?.uid ?? '');
+        }
         return currentUser!;
       },
     );

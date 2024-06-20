@@ -24,10 +24,6 @@ class SignupModel extends FlutterFlowModel<SignupWidget> {
   FocusNode? textFieldFocusNode4;
   TextEditingController? textController4;
   String? Function(BuildContext, String?)? textController4Validator;
-  // State field(s) for TextField widget.
-  FocusNode? textFieldFocusNode5;
-  TextEditingController? textController5;
-  String? Function(BuildContext, String?)? textController5Validator;
 
   @override
   void initState(BuildContext context) {
@@ -49,8 +45,5 @@ class SignupModel extends FlutterFlowModel<SignupWidget> {
 
     textFieldFocusNode4?.dispose();
     textController4?.dispose();
-
-    textFieldFocusNode5?.dispose();
-    textController5?.dispose();
   }
 }
