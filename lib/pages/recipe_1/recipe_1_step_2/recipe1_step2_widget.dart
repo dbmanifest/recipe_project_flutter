@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'recipe1_step2_model.dart';
 export 'recipe1_step2_model.dart';
+import '/flutter_flow/flutter_flow_util.dart';
 
 class Recipe1Step2Widget extends StatefulWidget {
   const Recipe1Step2Widget({super.key});
@@ -16,6 +17,61 @@ class _Recipe1Step2WidgetState extends State<Recipe1Step2Widget> {
   late Recipe1Step2Model _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  void _showVerificationDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return AlertDialog(
+              title: Text('Verify and Proceed'),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  CheckboxListTile(
+                    title: Text('Confirm That These Are The Correct Values'),
+                    value: _isConfirmed,
+                    onChanged: (bool? value) {
+                      setState(() {
+                        _isConfirmed = value ?? false;
+                      });
+                    },
+                  ),
+                  TextField(
+                    controller: _verificationCodeController,
+                    decoration: InputDecoration(
+                      labelText: 'Verifier\'s Secret Code',
+                      hintText: 'Enter 4-digit code',
+                    ),
+                    keyboardType: TextInputType.number,
+                    maxLength: 4,
+                  ),
+                ],
+              ),
+              actions: <Widget>[
+                TextButton(
+                  child: Text('Cancel'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                TextButton(
+                  child: Text('Proceed'),
+                  onPressed: _isConfirmed && _verificationCodeController.text.length == 4
+                      ? () {
+                          Navigator.of(context).pop();
+                          context.pushNamed('recipe_1_step_3');
+                        }
+                      : null,
+                ),
+              ],
+            );
+          }
+        );
+      },
+    );
+  }
 
   @override
   void initState() {
@@ -33,6 +89,12 @@ class _Recipe1Step2WidgetState extends State<Recipe1Step2Widget> {
 
     _model.textController4 ??= TextEditingController();
     _model.textFieldFocusNode4 ??= FocusNode();
+
+    // Initialize checkbox values
+    _model.checkboxValues1 = [false, false];
+    _model.checkboxValues2 = [false, false];
+    _model.checkboxValues3 = [false, false];
+    _model.checkboxValues4 = [false, false];
   }
 
   @override
@@ -40,6 +102,62 @@ class _Recipe1Step2WidgetState extends State<Recipe1Step2Widget> {
     _model.dispose();
 
     super.dispose();
+  }
+
+  Widget buildCheckboxGroup(String label1, String label2, bool? checkboxValue1, bool? checkboxValue2, ValueChanged<bool?> onChanged1, ValueChanged<bool?> onChanged2) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Checkbox(
+                value: checkboxValue1,
+                onChanged: onChanged1,
+                side: BorderSide(width: 2, color: FlutterFlowTheme.of(context).primary),
+                activeColor: FlutterFlowTheme.of(context).primary,
+                checkColor: FlutterFlowTheme.of(context).primaryText,
+              ),
+              SizedBox(width: 10),
+              Expanded(
+                child: Text(
+                  label1,
+                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                    fontFamily: 'Readex Pro',
+                    color: FlutterFlowTheme.of(context).alternate,
+                    letterSpacing: 0.0,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Checkbox(
+                value: checkboxValue2,
+                onChanged: onChanged2,
+                side: BorderSide(width: 2, color: FlutterFlowTheme.of(context).primary),
+                activeColor: FlutterFlowTheme.of(context).primary,
+                checkColor: FlutterFlowTheme.of(context).primaryText,
+              ),
+              SizedBox(width: 10),
+              Expanded(
+                child: Text(
+                  label2,
+                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                    fontFamily: 'Readex Pro',
+                    color: FlutterFlowTheme.of(context).alternate,
+                    letterSpacing: 0.0,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 
   @override
@@ -55,7 +173,7 @@ class _Recipe1Step2WidgetState extends State<Recipe1Step2Widget> {
           backgroundColor: FlutterFlowTheme.of(context).primary,
           automaticallyImplyLeading: false,
           title: Text(
-            'Step 1',
+            'Step 2',
             style: FlutterFlowTheme.of(context).headlineMedium.override(
                   fontFamily: 'Outfit',
                   color: Colors.white,
@@ -69,649 +187,137 @@ class _Recipe1Step2WidgetState extends State<Recipe1Step2Widget> {
         ),
         body: SafeArea(
           top: true,
-          child: Align(
-            alignment: const AlignmentDirectional(0.0, 0.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Text(
-                  'Pre-Use Filter Integrity Testing Pt 2.',
-                  style: FlutterFlowTheme.of(context).titleSmall.override(
-                        fontFamily: 'Readex Pro',
-                        letterSpacing: 0.0,
-                      ),
-                ),
-                Align(
-                  alignment: const AlignmentDirectional(0.0, 0.0),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: Align(
-                          alignment: const AlignmentDirectional(0.0, 0.0),
-                          child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                20.0, 0.0, 8.0, 20.0),
-                            child: SizedBox(
-                              width: MediaQuery.sizeOf(context).width * 0.3,
-                              child: TextFormField(
-                                controller: _model.textController1,
-                                focusNode: _model.textFieldFocusNode1,
-                                autofocus: true,
-                                obscureText: false,
-                                decoration: InputDecoration(
-                                  labelStyle: FlutterFlowTheme.of(context)
-                                      .labelMedium
-                                      .override(
-                                        fontFamily: 'Readex Pro',
-                                        color: FlutterFlowTheme.of(context)
-                                            .alternate,
-                                        letterSpacing: 0.0,
-                                      ),
-                                  alignLabelWithHint: true,
-                                  hintText:
-                                      'Sterile filter 1 (Upstream) Manufacturing Lot Number\n',
-                                  hintStyle: FlutterFlowTheme.of(context)
-                                      .labelMedium
-                                      .override(
-                                        fontFamily: 'Readex Pro',
-                                        color: FlutterFlowTheme.of(context)
-                                            .alternate,
-                                        letterSpacing: 0.0,
-                                      ),
-                                  enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context)
-                                          .alternate,
-                                      width: 2.0,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8.0),
-                                  ),
-                                  focusedBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color:
-                                          FlutterFlowTheme.of(context).primary,
-                                      width: 2.0,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8.0),
-                                  ),
-                                  errorBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context).error,
-                                      width: 2.0,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8.0),
-                                  ),
-                                  focusedErrorBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context).error,
-                                      width: 2.0,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8.0),
-                                  ),
-                                ),
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Readex Pro',
-                                      color: FlutterFlowTheme.of(context)
-                                          .alternate,
-                                      letterSpacing: 0.0,
-                                    ),
-                                validator: _model.textController1Validator
-                                    .asValidator(context),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Align(
-                  alignment: const AlignmentDirectional(0.0, 0.0),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Expanded(
-                        child: Align(
-                          alignment: const AlignmentDirectional(0.0, 0.0),
-                          child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                20.0, 0.0, 8.0, 20.0),
-                            child: SizedBox(
-                              width: MediaQuery.sizeOf(context).width * 0.3,
-                              child: TextFormField(
-                                controller: _model.textController2,
-                                focusNode: _model.textFieldFocusNode2,
-                                autofocus: true,
-                                obscureText: false,
-                                decoration: InputDecoration(
-                                  labelStyle: FlutterFlowTheme.of(context)
-                                      .labelMedium
-                                      .override(
-                                        fontFamily: 'Readex Pro',
-                                        color: FlutterFlowTheme.of(context)
-                                            .alternate,
-                                        letterSpacing: 0.0,
-                                      ),
-                                  hintText:
-                                      'Sterile filter 1 (Upstream) Serial Number\n',
-                                  hintStyle: FlutterFlowTheme.of(context)
-                                      .labelMedium
-                                      .override(
-                                        fontFamily: 'Readex Pro',
-                                        color: FlutterFlowTheme.of(context)
-                                            .alternate,
-                                        letterSpacing: 0.0,
-                                      ),
-                                  enabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context)
-                                          .alternate,
-                                      width: 2.0,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8.0),
-                                  ),
-                                  focusedBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color:
-                                          FlutterFlowTheme.of(context).primary,
-                                      width: 2.0,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8.0),
-                                  ),
-                                  errorBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context).error,
-                                      width: 2.0,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8.0),
-                                  ),
-                                  focusedErrorBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context).error,
-                                      width: 2.0,
-                                    ),
-                                    borderRadius: BorderRadius.circular(8.0),
-                                  ),
-                                ),
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Readex Pro',
-                                      color: FlutterFlowTheme.of(context)
-                                          .alternate,
-                                      letterSpacing: 0.0,
-                                    ),
-                                validator: _model.textController2Validator
-                                    .asValidator(context),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Row(
-                  mainAxisSize: MainAxisSize.min,
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              double width = constraints.maxWidth;
+
+              return Align(
+                alignment: const AlignmentDirectional(0.0, 0.0),
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Expanded(
-                      child: Align(
-                        alignment: const AlignmentDirectional(0.0, 0.0),
-                        child: Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              20.0, 0.0, 8.0, 20.0),
-                          child: SizedBox(
-                            width: MediaQuery.sizeOf(context).width * 0.3,
-                            child: TextFormField(
-                              controller: _model.textController3,
-                              focusNode: _model.textFieldFocusNode3,
-                              autofocus: true,
-                              obscureText: false,
-                              decoration: InputDecoration(
-                                hintText:
-                                    'Sterile filter 2 (Downstream) Manufacturing Lot Number\n',
-                                hintStyle: FlutterFlowTheme.of(context)
-                                    .labelMedium
-                                    .override(
-                                      fontFamily: 'Readex Pro',
-                                      color: FlutterFlowTheme.of(context)
-                                          .alternate,
-                                      letterSpacing: 0.0,
-                                    ),
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color:
-                                        FlutterFlowTheme.of(context).alternate,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).primary,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                errorBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).error,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                focusedErrorBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).error,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                              ),
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Readex Pro',
-                                    color:
-                                        FlutterFlowTheme.of(context).alternate,
-                                    letterSpacing: 0.0,
-                                  ),
-                              validator: _model.textController3Validator
-                                  .asValidator(context),
-                            ),
+                    Text(
+                      'Pre-Use Filter Integrity Testing Pt 2.',
+                      style: FlutterFlowTheme.of(context).titleSmall.override(
+                            fontFamily: 'Readex Pro',
+                            letterSpacing: 0.0,
                           ),
-                        ),
-                      ),
                     ),
-                  ],
-                ),
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Expanded(
-                      child: Align(
-                        alignment: const AlignmentDirectional(0.0, 0.0),
-                        child: Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              20.0, 0.0, 8.0, 20.0),
-                          child: SizedBox(
-                            width: MediaQuery.sizeOf(context).width * 0.3,
-                            child: TextFormField(
-                              controller: _model.textController4,
-                              focusNode: _model.textFieldFocusNode4,
-                              autofocus: true,
-                              obscureText: false,
-                              decoration: InputDecoration(
-                                labelStyle: FlutterFlowTheme.of(context)
-                                    .labelMedium
-                                    .override(
-                                      fontFamily: 'Readex Pro',
-                                      color: FlutterFlowTheme.of(context)
-                                          .alternate,
-                                      letterSpacing: 0.0,
-                                    ),
-                                hintText:
-                                    'Sterile filter 2 (Downstream) Serial Number\n',
-                                hintStyle: FlutterFlowTheme.of(context)
-                                    .labelMedium
-                                    .override(
-                                      fontFamily: 'Readex Pro',
-                                      color: FlutterFlowTheme.of(context)
-                                          .alternate,
-                                      letterSpacing: 0.0,
-                                    ),
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color:
-                                        FlutterFlowTheme.of(context).alternate,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                focusedBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).primary,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                errorBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).error,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                                focusedErrorBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).error,
-                                    width: 2.0,
-                                  ),
-                                  borderRadius: BorderRadius.circular(8.0),
-                                ),
-                              ),
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Readex Pro',
-                                    color:
-                                        FlutterFlowTheme.of(context).alternate,
-                                    letterSpacing: 0.0,
-                                  ),
-                              validator: _model.textController4Validator
-                                  .asValidator(context),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                Align(
-                  alignment: const AlignmentDirectional(0.0, 0.0),
-                  child: Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Align(
-                          alignment: const AlignmentDirectional(0.0, 0.0),
-                          child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                15.0, 0.0, 0.0, 0.0),
-                            child: Theme(
-                              data: ThemeData(
-                                checkboxTheme: CheckboxThemeData(
-                                  visualDensity: VisualDensity.compact,
-                                  materialTapTargetSize:
-                                      MaterialTapTargetSize.shrinkWrap,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12.0),
-                                  ),
-                                ),
-                                unselectedWidgetColor:
-                                    FlutterFlowTheme.of(context).primary,
-                              ),
-                              child: Checkbox(
-                                value: _model.checkboxValue1 ??= false,
-                                onChanged: (newValue) async {
-                                  setState(
-                                      () => _model.checkboxValue1 = newValue!);
-                                },
-                                side: BorderSide(
-                                  width: 2,
-                                  color: FlutterFlowTheme.of(context).primary,
-                                ),
-                                activeColor:
-                                    FlutterFlowTheme.of(context).primary,
-                                checkColor:
-                                    FlutterFlowTheme.of(context).primaryText,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Align(
-                          alignment: const AlignmentDirectional(0.0, 0.0),
-                          child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                20.0, 0.0, 0.0, 0.0),
-                            child: Text(
-                              'Retrieve the Filtration Path and Sterile Filters',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Readex Pro',
-                                    color:
-                                        FlutterFlowTheme.of(context).alternate,
-                                    letterSpacing: 0.0,
-                                  ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Align(
-                  alignment: const AlignmentDirectional(0.0, 0.0),
-                  child: Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Align(
-                          alignment: const AlignmentDirectional(0.0, 0.0),
-                          child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                15.0, 0.0, 0.0, 0.0),
-                            child: Theme(
-                              data: ThemeData(
-                                checkboxTheme: CheckboxThemeData(
-                                  visualDensity: VisualDensity.compact,
-                                  materialTapTargetSize:
-                                      MaterialTapTargetSize.shrinkWrap,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12.0),
-                                  ),
-                                ),
-                                unselectedWidgetColor:
-                                    FlutterFlowTheme.of(context).primary,
-                              ),
-                              child: Checkbox(
-                                value: _model.checkboxValue2 ??= false,
-                                onChanged: (newValue) async {
-                                  setState(
-                                      () => _model.checkboxValue2 = newValue!);
-                                },
-                                side: BorderSide(
-                                  width: 2,
-                                  color: FlutterFlowTheme.of(context).primary,
-                                ),
-                                activeColor:
-                                    FlutterFlowTheme.of(context).primary,
-                                checkColor:
-                                    FlutterFlowTheme.of(context).primaryText,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Align(
-                          alignment: const AlignmentDirectional(0.0, 0.0),
-                          child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                20.0, 0.0, 0.0, 0.0),
-                            child: Text(
-                              'Issue all materials from materials and consumables table to Work Order.\n',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Readex Pro',
-                                    color:
-                                        FlutterFlowTheme.of(context).alternate,
-                                    letterSpacing: 0.0,
-                                  ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Align(
-                  alignment: const AlignmentDirectional(0.0, 0.0),
-                  child: Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Align(
-                          alignment: const AlignmentDirectional(0.0, 0.0),
-                          child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                15.0, 0.0, 0.0, 0.0),
-                            child: Theme(
-                              data: ThemeData(
-                                checkboxTheme: CheckboxThemeData(
-                                  visualDensity: VisualDensity.compact,
-                                  materialTapTargetSize:
-                                      MaterialTapTargetSize.shrinkWrap,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12.0),
-                                  ),
-                                ),
-                                unselectedWidgetColor:
-                                    FlutterFlowTheme.of(context).primary,
-                              ),
-                              child: Checkbox(
-                                value: _model.checkboxValue3 ??= false,
-                                onChanged: (newValue) async {
-                                  setState(
-                                      () => _model.checkboxValue3 = newValue!);
-                                },
-                                side: BorderSide(
-                                  width: 2,
-                                  color: FlutterFlowTheme.of(context).primary,
-                                ),
-                                activeColor:
-                                    FlutterFlowTheme.of(context).primary,
-                                checkColor:
-                                    FlutterFlowTheme.of(context).primaryText,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Align(
-                          alignment: const AlignmentDirectional(0.0, 0.0),
-                          child: Text(
-                            'Inspect all disposable materials for any integrity defects prior to making aseptic connections. If defects are observed, contact area management prior to proceeding.\nCheck the checkbox if materials are free from defects.\n',
-                            textAlign: TextAlign.center,
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
+                    buildFieldWithCheckboxes('Sterile filter 1 (Upstream) Manufacturing Lot Number\n', _model.textController1, _model.textFieldFocusNode1, _model.checkboxValues1, width),
+                    buildFieldWithCheckboxes('Sterile filter 1 (Upstream) Serial Number\n', _model.textController2, _model.textFieldFocusNode2, _model.checkboxValues2, width),
+                    buildFieldWithCheckboxes('Sterile filter 2 (Downstream) Manufacturing Lot Number\n', _model.textController3, _model.textFieldFocusNode3, _model.checkboxValues3, width),
+                    buildFieldWithCheckboxes('Sterile filter 2 (Downstream) Serial Number\n', _model.textController4, _model.textFieldFocusNode4, _model.checkboxValues4, width),
+                    Align(
+                      alignment: const AlignmentDirectional(0.0, 0.0),
+                      child: Padding(
+                        padding: const EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
+                        child: FFButtonWidget(
+                          onPressed: () {
+                            _showVerificationDialog();
+                          },
+                          text: 'Next',
+                          options: FFButtonOptions(
+                            height: 25.0,
+                            padding: const EdgeInsetsDirectional.fromSTEB(15.0, 1.0, 15.0, 1.0),
+                            iconPadding: const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                            color: FlutterFlowTheme.of(context).primary,
+                            textStyle: FlutterFlowTheme.of(context).titleSmall.override(
                                   fontFamily: 'Readex Pro',
-                                  color: FlutterFlowTheme.of(context).alternate,
+                                  color: Colors.white,
                                   letterSpacing: 0.0,
                                 ),
+                            elevation: 3.0,
+                            borderSide: const BorderSide(
+                              color: Colors.transparent,
+                              width: 1.0,
+                            ),
+                            borderRadius: BorderRadius.circular(8.0),
                           ),
                         ),
-                      ],
+                      ),
                     ),
-                  ),
+                  ].divide(const SizedBox(height: 20.0)),
                 ),
-                Align(
-                  alignment: const AlignmentDirectional(0.0, 0.0),
-                  child: Padding(
-                    padding:
-                        const EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Align(
-                          alignment: const AlignmentDirectional(0.0, 0.0),
-                          child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                15.0, 0.0, 0.0, 0.0),
-                            child: Theme(
-                              data: ThemeData(
-                                checkboxTheme: CheckboxThemeData(
-                                  visualDensity: VisualDensity.compact,
-                                  materialTapTargetSize:
-                                      MaterialTapTargetSize.shrinkWrap,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12.0),
-                                  ),
-                                ),
-                                unselectedWidgetColor:
-                                    FlutterFlowTheme.of(context).primary,
-                              ),
-                              child: Checkbox(
-                                value: _model.checkboxValue4 ??= false,
-                                onChanged: (newValue) async {
-                                  setState(
-                                      () => _model.checkboxValue4 = newValue!);
-                                },
-                                side: BorderSide(
-                                  width: 2,
-                                  color: FlutterFlowTheme.of(context).primary,
-                                ),
-                                activeColor:
-                                    FlutterFlowTheme.of(context).primary,
-                                checkColor:
-                                    FlutterFlowTheme.of(context).primaryText,
-                              ),
-                            ),
-                          ),
-                        ),
-                        Align(
-                          alignment: const AlignmentDirectional(0.0, 0.0),
-                          child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                20.0, 0.0, 0.0, 0.0),
-                            child: Text(
-                              'Checking Here Provides A Digital Initial',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Readex Pro',
-                                    color:
-                                        FlutterFlowTheme.of(context).alternate,
-                                    letterSpacing: 0.0,
-                                  ),
-                            ),
-                          ),
-                        ),
-                        Align(
-                          alignment: const AlignmentDirectional(0.0, 0.0),
-                          child: Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                20.0, 0.0, 0.0, 0.0),
-                            child: FFButtonWidget(
-                              onPressed: () {
-                                print('Button pressed ...');
-                              },
-                              text: 'Next',
-                              options: FFButtonOptions(
-                                height: 25.0,
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    15.0, 1.0, 15.0, 1.0),
-                                iconPadding: const EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 0.0),
-                                color: FlutterFlowTheme.of(context).primary,
-                                textStyle: FlutterFlowTheme.of(context)
-                                    .titleSmall
-                                    .override(
-                                      fontFamily: 'Readex Pro',
-                                      color: Colors.white,
-                                      letterSpacing: 0.0,
-                                    ),
-                                elevation: 3.0,
-                                borderSide: const BorderSide(
-                                  color: Colors.transparent,
-                                  width: 1.0,
-                                ),
-                                borderRadius: BorderRadius.circular(8.0),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ].divide(const SizedBox(height: 20.0)),
-            ),
+              );
+            },
           ),
         ),
+      ),
+    );
+  }
+
+  Widget buildFieldWithCheckboxes(
+    String hintText,
+    TextEditingController controller,
+    FocusNode focusNode,
+    List<bool> checkboxValues,
+    double width,
+  ) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Column(
+        children: [
+          SizedBox(
+            width: width * 0.6,
+            child: TextFormField(
+              controller: controller,
+              focusNode: focusNode,
+              autofocus: true,
+              obscureText: false,
+              decoration: InputDecoration(
+                labelStyle: FlutterFlowTheme.of(context).labelMedium.override(
+                      fontFamily: 'Readex Pro',
+                      color: FlutterFlowTheme.of(context).alternate,
+                      letterSpacing: 0.0,
+                    ),
+                alignLabelWithHint: true,
+                hintText: hintText,
+                hintStyle: FlutterFlowTheme.of(context).labelMedium.override(
+                      fontFamily: 'Readex Pro',
+                      color: FlutterFlowTheme.of(context).alternate,
+                      letterSpacing: 0.0,
+                    ),
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: FlutterFlowTheme.of(context).alternate,
+                    width: 2.0,
+                  ),
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: FlutterFlowTheme.of(context).primary,
+                    width: 2.0,
+                  ),
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                errorBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: FlutterFlowTheme.of(context).error,
+                    width: 2.0,
+                  ),
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                focusedErrorBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: FlutterFlowTheme.of(context).error,
+                    width: 2.0,
+                  ),
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+              ),
+              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                    fontFamily: 'Readex Pro',
+                    color: FlutterFlowTheme.of(context).alternate,
+                    letterSpacing: 0.0,
+                  ),
+              validator: _model.textController1Validator.asValidator(context),
+            ),
+          ),
+          buildCheckboxGroup('Recorded By Digital Initials', 'Verified By Initials', checkboxValues[0], checkboxValues[1], (newValue) => setState(() => checkboxValues[0] = newValue!), (newValue) => setState(() => checkboxValues[1] = newValue!)),
+        ],
       ),
     );
   }

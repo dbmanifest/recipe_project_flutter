@@ -18,6 +18,8 @@ class Recipe1Step5Model extends FlutterFlowModel<Recipe1Step5Widget> {
   bool? checkboxValue1;
   // State field(s) for Checkbox widget.
   bool? checkboxValue2;
+  List<bool> checkboxValues1 = [false, false];
+  List<bool> checkboxValues2 = [false, false];
 
   @override
   void initState(BuildContext context) {}

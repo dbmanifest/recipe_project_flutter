@@ -4,7 +4,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'recipe1_step12_model.dart';
 export 'recipe1_step12_model.dart';
-
+import '/flutter_flow/flutter_flow_util.dart';
 class Recipe1Step12Widget extends StatefulWidget {
   const Recipe1Step12Widget({super.key});
 
@@ -16,6 +16,61 @@ class _Recipe1Step12WidgetState extends State<Recipe1Step12Widget> {
   late Recipe1Step12Model _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  void _showVerificationDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+          builder: (context, setState) {
+            return AlertDialog(
+              title: Text('Verify and Proceed'),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  CheckboxListTile(
+                    title: Text('Confirm That These Are The Correct Values'),
+                    value: _isConfirmed,
+                    onChanged: (bool? value) {
+                      setState(() {
+                        _isConfirmed = value ?? false;
+                      });
+                    },
+                  ),
+                  TextField(
+                    controller: _verificationCodeController,
+                    decoration: InputDecoration(
+                      labelText: 'Verifier\'s Secret Code',
+                      hintText: 'Enter 4-digit code',
+                    ),
+                    keyboardType: TextInputType.number,
+                    maxLength: 4,
+                  ),
+                ],
+              ),
+              actions: <Widget>[
+                TextButton(
+                  child: Text('Cancel'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+                TextButton(
+                  child: Text('Proceed'),
+                  onPressed: _isConfirmed && _verificationCodeController.text.length == 4
+                      ? () {
+                          Navigator.of(context).pop();
+                          context.pushNamed('recipe_1_step_13');
+                        }
+                      : null,
+                ),
+              ],
+            );
+          }
+        );
+      },
+    );
+  }
 
   @override
   void initState() {
@@ -615,7 +670,8 @@ class _Recipe1Step12WidgetState extends State<Recipe1Step12Widget> {
                                 20.0, 0.0, 0.0, 0.0),
                             child: FFButtonWidget(
                               onPressed: () {
-                                print('Button pressed ...');
+                                _showVerificationDialog();
+
                               },
                               text: 'Next',
                               options: FFButtonOptions(

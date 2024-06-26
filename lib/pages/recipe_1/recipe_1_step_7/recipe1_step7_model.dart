@@ -36,6 +36,10 @@ class Recipe1Step7Model extends FlutterFlowModel<Recipe1Step7Widget> {
   // State field(s) for Checkbox widget.
   bool? checkboxValue;
 
+  bool isConfirmed = false;
+  final TextEditingController verificationCodeController =
+      TextEditingController();
+
   @override
   void initState(BuildContext context) {}
 
@@ -59,5 +63,7 @@ class Recipe1Step7Model extends FlutterFlowModel<Recipe1Step7Widget> {
 
     textFieldFocusNode6?.dispose();
     textController6?.dispose();
+
+    verificationCodeController.dispose();
   }
 }

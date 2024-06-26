@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'recipe_submitted_model.dart';
 export 'recipe_submitted_model.dart';
-
+import '/flutter_flow/flutter_flow_util.dart';
 class RecipeSubmittedWidget extends StatefulWidget {
   const RecipeSubmittedWidget({super.key});
 
@@ -270,7 +270,7 @@ class _RecipeSubmittedWidgetState extends State<RecipeSubmittedWidget>
                   size: 24.0,
                 ),
                 onPressed: () {
-                  print('IconButton pressed ...');
+                  context.pushNamed('home_page');
                 },
               ),
             ),

@@ -6,20 +6,21 @@ class Recipe1Step3Model extends FlutterFlowModel<Recipe1Step3Widget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
-  // State field(s) for Checkbox widget.
-  bool? checkboxValue1;
-  // State field(s) for Checkbox widget.
-  bool? checkboxValue2;
-  // State field(s) for TextField widget.
+  
+  // State fields for TextField widget 1
   FocusNode? textFieldFocusNode1;
   TextEditingController? textController1;
   String? Function(BuildContext, String?)? textController1Validator;
-  // State field(s) for TextField widget.
+  List<bool> checkboxValues1 = [false, false]; // Added to hold the checkbox values
+
+  // State fields for TextField widget 2
   FocusNode? textFieldFocusNode2;
   TextEditingController? textController2;
   String? Function(BuildContext, String?)? textController2Validator;
-  // State field(s) for Checkbox widget.
-  bool? checkboxValue3;
+  List<bool> checkboxValues2 = [false, false]; // Added to hold the checkbox values
+
+  // State fields for Checkbox group 3
+  List<bool> checkboxValues3 = [false, false]; // Added to hold the checkbox values
 
   @override
   void initState(BuildContext context) {}
@@ -29,7 +30,7 @@ class Recipe1Step3Model extends FlutterFlowModel<Recipe1Step3Widget> {
     unfocusNode.dispose();
     textFieldFocusNode1?.dispose();
     textController1?.dispose();
-
+    
     textFieldFocusNode2?.dispose();
     textController2?.dispose();
   }
